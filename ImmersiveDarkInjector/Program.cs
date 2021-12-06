@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace ImmersiveDarkInjector
 {
     internal static class Program
     {
+        public static Configuration Settings { get; } = new Configuration().Import();
+
         static NotifyIcon NotifyIcon { get; set; }
 
         static bool IsAdministrator { get; } = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
@@ -19,6 +22,10 @@ namespace ImmersiveDarkInjector
         [STAThread]
         static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+#if !DEBUG
             if (!Win32.IsW10OrGreater(17763))
             {
                 MessageBox.Show
@@ -31,6 +38,7 @@ namespace ImmersiveDarkInjector
 
                 return;
             }
+#endif
 
             CreateSystemTrayIcon();
 
@@ -89,12 +97,15 @@ namespace ImmersiveDarkInjector
                     );
 
                     // Sleep to reduce CPU usage.
-                    Thread.Sleep(25);
+                    Thread.Sleep(Settings.InjectionRate);
                 }
             });
 
             Application.Run();
         }
+
+        public static string GetAssemblyName()
+            => Assembly.GetEntryAssembly().GetName().Name;
 
         static void CreateSystemTrayIcon()
         {
@@ -109,12 +120,15 @@ namespace ImmersiveDarkInjector
             (
                 new[]
                 {
+                    new MenuItem("Settings", NotifyIcon_ContextMenu_Settings),
+                    new MenuItem("-"),
                     new MenuItem("GitHub", NotifyIcon_ContextMenu_GitHub),
                     new MenuItem("Exit", NotifyIcon_ContextMenu_Exit)
                 }
             );
 
-            if (!IsAdministrator)
+#if !DEBUG
+            if (!IsAdministrator && !Settings.HideAdminWarning)
             {
                 NotifyIcon.ShowBalloonTip
                 (
@@ -124,7 +138,11 @@ namespace ImmersiveDarkInjector
                     ToolTipIcon.Warning
                 );
             }
+#endif
         }
+
+        static void NotifyIcon_ContextMenu_Settings(object sender, EventArgs e)
+            => new Settings().Show();
 
         static void NotifyIcon_ContextMenu_GitHub(object sender, EventArgs e)
             => Process.Start("https://github.com/HyperBE32/ImmersiveDarkInjector");

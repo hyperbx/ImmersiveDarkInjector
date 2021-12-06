@@ -9,10 +9,29 @@
     <Authors>HyperBE32</Authors>
     <Product>Immersive Dark Injector</Product>
     <Description>A background process that injects immersive dark mode into currently opened windows.</Description>
+    <Configurations>Debug;Release;Release-NoWarnings</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-NoWarnings|AnyCPU'">
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Resources\Icons\Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Costura.Fody" Version="5.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Noire">
+      <HintPath>Libraries\Noire.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
