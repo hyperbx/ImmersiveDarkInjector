@@ -12,5 +12,12 @@ namespace ImmersiveDarkInjector
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetShellWindow();
+
+        /// <summary>
+        /// Checks if the returned OSVersion is greater than Windows 10.
+        /// </summary>
+        /// <param name="build">Windows 10 build number to check.</param>
+        public static bool IsW10OrGreater(int build)
+            => Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
     }
 }

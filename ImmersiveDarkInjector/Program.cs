@@ -19,7 +19,7 @@ namespace ImmersiveDarkInjector
         [STAThread]
         static void Main()
         {
-            if (!ImmersiveDarkMode.IsW10OrGreater(17763))
+            if (!Win32.IsW10OrGreater(17763))
             {
                 MessageBox.Show
                 (
@@ -88,7 +88,7 @@ namespace ImmersiveDarkInjector
                         IntPtr.Zero
                     );
 
-                    // Sleep to reduce CPU time.
+                    // Sleep to reduce CPU usage.
                     Thread.Sleep(25);
                 }
             });
