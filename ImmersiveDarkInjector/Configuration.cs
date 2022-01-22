@@ -3,31 +3,48 @@ using System.IO;
 
 namespace ImmersiveDarkInjector
 {
-    internal class Configuration
-    {
-        private string _config = $"{Program.GetAssemblyName()}.json";
+	public class Configuration : INotifyPropertyChanged
+	{
+		private string _config = $"{App.GetAssemblyName()}.json";
 
-        public bool HideAdminWarning { get; set; } = false;
+		public BindingList<Exclusion> Exclusions { get; set; } = new();
 
-        public int InjectionRate { get; set; } = 25;
+		public int InjectionRate { get; set; } = 20;
 
-        public Configuration Export()
-        {
-            // Export current config.
-            File.WriteAllText(_config, JsonConvert.SerializeObject(this, Formatting.Indented));
+		public bool IgnoreLowLatencyInjectionWarning { get; set; } = false;
 
-            // Return current config.
-            return this;
-        }
+		public bool InjectAllOpenWindows { get; set; } = true;
 
-        public Configuration Import()
-        {
-            // Return deserialised object if the config exists.
-            if (File.Exists(_config))
-                return JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(_config));
+		public bool HideAdminWarning { get; set; } = false;
 
-            // Export from current config and return.
-            return Export();
-        }
-    }
+		public event PropertyChangedEventHandler? PropertyChanged;
+
+		public Configuration()
+            => Exclusions.ListChanged += Exclusions_ListChanged;
+
+        private void Exclusions_ListChanged(object? sender, ListChangedEventArgs e)
+			=> Export();
+
+		public void OnPropertyChanged(PropertyChangedEventArgs e)
+			=> Export();
+
+		public Configuration Export()
+		{
+			// Export current config.
+			File.WriteAllText(_config, JsonConvert.SerializeObject(this, Formatting.Indented));
+
+			// Return current config.
+			return this;
+		}
+
+		public Configuration Import()
+		{
+			// Return deserialised object if the config exists.
+			if (File.Exists(_config))
+				return JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(_config));
+
+			// Export from current config and return.
+			return Export();
+		}
+	}
 }

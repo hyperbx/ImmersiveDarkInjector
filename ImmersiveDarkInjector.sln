@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31919.166
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImmersiveDarkInjector", "ImmersiveDarkInjector\ImmersiveDarkInjector.csproj", "{2ADB14FA-D861-41F7-9AA6-745FC20A4F9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImmersiveDarkInjector", "ImmersiveDarkInjector\ImmersiveDarkInjector.csproj", "{57D30E3B-6785-44B3-9BDD-797C8AADEF3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2ADB14FA-D861-41F7-9AA6-745FC20A4F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2ADB14FA-D861-41F7-9AA6-745FC20A4F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2ADB14FA-D861-41F7-9AA6-745FC20A4F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2ADB14FA-D861-41F7-9AA6-745FC20A4F9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57D30E3B-6785-44B3-9BDD-797C8AADEF3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D30E3B-6785-44B3-9BDD-797C8AADEF3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D30E3B-6785-44B3-9BDD-797C8AADEF3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D30E3B-6785-44B3-9BDD-797C8AADEF3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {33E5AF44-153E-42FB-8A25-43D7476565AC}
+		SolutionGuid = {CE5BE27E-AC93-44B1-A635-79600269E0C1}
 	EndGlobalSection
 EndGlobal

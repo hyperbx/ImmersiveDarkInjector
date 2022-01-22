@@ -2,36 +2,26 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
-    <UseWindowsForms>True</UseWindowsForms>
+    <TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>False</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\Icon.ico</ApplicationIcon>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Authors>HyperBE32</Authors>
-    <Product>Immersive Dark Injector</Product>
-    <Description>A background process that injects immersive dark mode into currently opened windows.</Description>
-    <Configurations>Debug;Release;Release-NoWarnings</Configurations>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-NoWarnings|AnyCPU'">
-    <Optimize>True</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Icons\Icon.ico" />
+    <None Remove="Resources\Icons\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="5.7.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <Resource Include="Resources\Icons\Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Noire">
-      <HintPath>Libraries\Noire.dll</HintPath>
-    </Reference>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>
