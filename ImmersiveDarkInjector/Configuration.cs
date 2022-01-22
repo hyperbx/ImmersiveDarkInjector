@@ -5,7 +5,7 @@ namespace ImmersiveDarkInjector
 {
 	public class Configuration : INotifyPropertyChanged
 	{
-		private string _config = $"{App.GetAssemblyName()}.json";
+		private string _config = $"{AssemblyExtensions.GetAssemblyName()}.json";
 
 		public BindingList<Exclusion> Exclusions { get; set; } = new();
 

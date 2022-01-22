@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using ModernWpf.Controls;
 
 namespace ImmersiveDarkInjector
@@ -12,6 +11,8 @@ namespace ImmersiveDarkInjector
         public Settings()
 		{
 			InitializeComponent();
+			
+			Title += $" (Version {AssemblyExtensions.GetInformationalVersion()})";
 		}
 
 		private async void UI_Injection_Rate_OnValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)

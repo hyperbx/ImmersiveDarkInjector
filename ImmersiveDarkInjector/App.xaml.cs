@@ -1,9 +1,8 @@
-﻿global using Microsoft.Win32;
-global using System;
+﻿global using System;
 global using System.ComponentModel;
 global using System.Diagnostics;
+global using System.Reflection;
 using System.Linq;
-using System.Reflection;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,16 +17,11 @@ namespace ImmersiveDarkInjector
     /// </summary>
     public partial class App
 	{
-		public static string Name { get; } = "Immersive Dark Injector";
-
         public static Configuration Settings { get; } = new Configuration().Import();
 
 		public static TaskbarIcon TaskbarIcon { get; set; }
 
         public static bool IsAdministrator { get; } = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-
-        public static string GetAssemblyName()
-			=> Assembly.GetEntryAssembly().GetName().Name;
 		
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
