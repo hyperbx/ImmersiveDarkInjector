@@ -3,15 +3,15 @@ using ModernWpf.Controls;
 
 namespace ImmersiveDarkInjector
 {
-    /// <summary>
-    /// Interaction logic for Settings.xaml
-    /// </summary>
-    public partial class Settings
-    {
-        public Settings()
+	/// <summary>
+	/// Interaction logic for Settings.xaml
+	/// </summary>
+	public partial class Settings
+	{
+		public Settings()
 		{
 			InitializeComponent();
-			
+
 			Title += $" (Version {AssemblyExtensions.GetInformationalVersion()})";
 		}
 
