@@ -6,7 +6,10 @@
         /// Returns the assembly informational version from the entry assembly. 
         /// </summary>
         public static string GetInformationalVersion()
-            => Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+        {
+            return Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion
+                .Split('+')[0];
+        }
 
         /// <summary>
         /// Returns the current assembly name.

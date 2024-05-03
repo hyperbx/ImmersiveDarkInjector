@@ -38,8 +38,8 @@
 
             <GroupBox Header="Miscellaneous">
                 <StackPanel>
-                    <CheckBox Content="Hide administrator warning"
-                              IsChecked="{Binding Mode=TwoWay, Source={x:Static local:App.Settings}, Path=HideAdminWarning}"/>
+                    <CheckBox Content="Run at startup" Checked="UI_RunAtStartup_CheckedChanged" Unchecked="UI_RunAtStartup_CheckedChanged"
+                              IsChecked="{Binding Mode=TwoWay, Source={x:Static local:App.Settings}, Path=RunAtStartup}"/>
                 </StackPanel>
             </GroupBox>
 

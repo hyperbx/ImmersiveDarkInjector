@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using Microsoft.Win32.TaskScheduler;
+using System.Runtime.InteropServices;
 
 namespace ImmersiveDarkInjector
 {
@@ -40,6 +41,45 @@ namespace ImmersiveDarkInjector
             GetWindowThreadProcessId(hWnd, out uint lpdwProcessId);
 
             return (int)lpdwProcessId;
+        }
+
+        public static bool TaskExists(string name)
+        {
+            using (var taskService = new TaskService())
+                return taskService.GetTask(name) != null;
+        }
+
+        public static void CreateLogonTask(string name, string desc, string author, TaskRunLevel privileges = TaskRunLevel.Highest)
+        {
+            using (var taskService = new TaskService())
+            {
+                var def = taskService.NewTask();
+
+                def.RegistrationInfo.Description = desc;
+                def.RegistrationInfo.Author = author;
+                def.Principal.RunLevel = privileges;
+                def.Principal.UserId = Environment.UserName;
+
+                var trigger = new LogonTrigger();
+                def.Triggers.Add(trigger);
+
+                def.Actions.Add(new ExecAction(Environment.ProcessPath));
+
+                taskService.RootFolder.RegisterTaskDefinition(name, def);
+            }
+        }
+
+        public static void RemoveTask(string name)
+        {
+            using (var taskService = new TaskService())
+            {
+                var task = taskService.GetTask(name);
+
+                if (task == null)
+                    return;
+
+                taskService.RootFolder.DeleteTask(name);
+            }
         }
     }
 }

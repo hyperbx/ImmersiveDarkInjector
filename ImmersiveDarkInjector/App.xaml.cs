@@ -3,7 +3,6 @@ global using System.ComponentModel;
 global using System.Diagnostics;
 global using System.Reflection;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,8 +20,6 @@ namespace ImmersiveDarkInjector
 
         public static TaskbarIcon TaskbarIcon { get; set; }
 
-        public static bool IsAdministrator { get; } = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
 #if !DEBUG
@@ -31,7 +28,7 @@ namespace ImmersiveDarkInjector
                 MessageBox.Show
                 (
                     "Only Windows 10 build 17763 or later is supported.",
-                    "Unsupported Windows Version",
+                    ImmersiveDarkInjector.Properties.Resources.ApplicationName,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
                 );
@@ -39,7 +36,7 @@ namespace ImmersiveDarkInjector
                 Shutdown(-1);
             }
 #endif
-
+            UpdateTask();
             CreateSystemTrayIcon();
 
             Task.Run(() =>
@@ -95,10 +92,24 @@ namespace ImmersiveDarkInjector
                             ImmersiveDarkMode.Initialise(hWnd, true);
                     }
 
-                    // Sleep until next injection.
                     Thread.Sleep(Settings.InjectionRate);
                 }
             });
+        }
+
+        public static void UpdateTask()
+        {
+            var name = ImmersiveDarkInjector.Properties.Resources.ApplicationName;
+            var desc = ImmersiveDarkInjector.Properties.Resources.ApplicationDescription;
+
+            if (Settings.RunAtStartup)
+            {
+                Win32.CreateLogonTask(name, desc, "Hyper");
+            }
+            else if (Win32.TaskExists(name))
+            {
+                Win32.RemoveTask(name);
+            }
         }
 
         private void CreateSystemTrayIcon()
@@ -108,27 +119,15 @@ namespace ImmersiveDarkInjector
                 ContextMenu = Current.TryFindResource("TaskbarIconMenu") as ContextMenu,
                 Icon = ImmersiveDarkInjector.Properties.Resources.Icon,
                 MenuActivation = PopupActivationMode.RightClick,
-                ToolTipText = "Immersive Dark Injector"
+                ToolTipText = ImmersiveDarkInjector.Properties.Resources.ApplicationName
             };
-
-#if !DEBUG
-            if (!IsAdministrator && !Settings.HideAdminWarning)
-            {
-                TaskbarIcon.ShowBalloonTip
-                (
-                    "Immersive Dark Injector",
-                    "Please restart as administrator to be able to inject to windows from elevated processes.",
-                    BalloonIcon.Warning
-                );
-            }
-#endif
         }
 
         private void TaskbarIcon_ContextMenu_Settings(object sender, RoutedEventArgs e)
             => new Settings().Show();
 
         private void TaskbarIcon_ContextMenu_GitHub(object sender, RoutedEventArgs e)
-            => ProcessExtensions.StartWithDefaultProgram("https://github.com/HyperBE32/ImmersiveDarkInjector");
+            => ProcessExtensions.StartWithDefaultProgram("https://github.com/hyperbx/ImmersiveDarkInjector");
 
         private void TaskbarIcon_ContextMenu_Exit(object sender, RoutedEventArgs e)
             => Shutdown();

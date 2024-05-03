@@ -15,7 +15,7 @@ namespace ImmersiveDarkInjector
 
         public bool InjectAllOpenWindows { get; set; } = true;
 
-        public bool HideAdminWarning { get; set; } = false;
+        public bool RunAtStartup { get; set; } = true;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

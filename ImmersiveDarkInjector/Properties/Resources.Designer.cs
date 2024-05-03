@@ -61,6 +61,24 @@ namespace ImmersiveDarkInjector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A background process that injects immersive dark mode into currently opened windows..
+        /// </summary>
+        internal static string ApplicationDescription {
+            get {
+                return ResourceManager.GetString("ApplicationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Immersive Dark Injector.
+        /// </summary>
+        internal static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Icon {

@@ -35,6 +35,9 @@ namespace ImmersiveDarkInjector
 			}
 		}
 
+		private void UI_RunAtStartup_CheckedChanged(object sender, RoutedEventArgs e)
+			=> App.UpdateTask();
+
 		private async void UI_Exclusions_Add_Click(object sender, RoutedEventArgs e)
 		{
 			ExclusionDialog exclusion = new();
